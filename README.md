@@ -12,6 +12,7 @@ An phonebook program to illustrate the impact of cache miss
 - Reduce the time cost of `findName()`
 - Clear the cache before executing phonebook_orig and phonebook_opt 
 - Use [astyle](http://astyle.sourceforge.net/astyle.html) to format your code
+
 `astyle --style=kr --indent=spaces=4 --indent-switches`
 
 ### Optional
