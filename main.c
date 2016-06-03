@@ -4,6 +4,12 @@
 #include <time.h>
 #include <assert.h>
 
+//for clock_gettime
+#include <sys/time.h>
+#ifdef __MACH__
+#include <mach/clock.h>
+#include <mach/mach.h>
+#endif
 #include IMPL
 
 #define DICT_FILE "./dictionary/words.txt"
@@ -21,13 +27,34 @@ static double diff_in_second(struct timespec t1, struct timespec t2)
     return (diff.tv_sec + diff.tv_nsec / 1000000000.0);
 }
 
+void osx_clock_gettime(struct timespec *p)
+{
+#ifdef __MACH__ // OS X does not have clock_gettime, use clock_get_time
+    clock_serv_t cclock;
+    mach_timespec_t mts;
+    host_get_clock_service(mach_host_self(), CALENDAR_CLOCK, &cclock);
+    clock_get_time(cclock, &mts);
+    mach_port_deallocate(mach_task_self(), cclock);
+    p->tv_sec = mts.tv_sec;
+    p->tv_nsec = mts.tv_nsec;
+#else
+    clock_gettime(CLOCK_REALTIME, p);
+#endif
+    return;
+}
+
+
+
 int main(int argc, char *argv[])
 {
     FILE *fp;
     int i = 0;
     char line[MAX_LAST_NAME_SIZE];
+
     struct timespec start, end;
     double cpu_time1, cpu_time2;
+
+
 
     /* check file opening */
     fp = fopen(DICT_FILE, "r");
@@ -46,7 +73,9 @@ int main(int argc, char *argv[])
 #if defined(__GNUC__)
     __builtin___clear_cache((char *) pHead, (char *) pHead + sizeof(entry));
 #endif
-    clock_gettime(CLOCK_REALTIME, &start);
+
+    // clock_gettime(CLOCK_REALTIME, &start);
+    osx_clock_gettime(&start);
     while (fgets(line, sizeof(line), fp)) {
         while (line[i] != '\0')
             i++;
@@ -54,7 +83,8 @@ int main(int argc, char *argv[])
         i = 0;
         e = append(line, e);
     }
-    clock_gettime(CLOCK_REALTIME, &end);
+    // clock_gettime(CLOCK_REALTIME, &end);
+    osx_clock_gettime(&end);
     cpu_time1 = diff_in_second(start, end);
 
     /* close file as soon as possible */
@@ -74,9 +104,11 @@ int main(int argc, char *argv[])
     __builtin___clear_cache((char *) pHead, (char *) pHead + sizeof(entry));
 #endif
     /* compute the execution time */
-    clock_gettime(CLOCK_REALTIME, &start);
+    // clock_gettime(CLOCK_REALTIME, &start);
+    osx_clock_gettime(&start);
     findName(input, e);
-    clock_gettime(CLOCK_REALTIME, &end);
+    // clock_gettime(CLOCK_REALTIME, &end);
+    osx_clock_gettime(&end);
     cpu_time2 = diff_in_second(start, end);
 
     FILE *output;
