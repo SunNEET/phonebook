@@ -1,0 +1,30 @@
+main.c 的部分
+Linux環境下才有 clock_gettime 能使用，在OSX上必須靠其他方法實作
+參考連結：http://stackoverflow.com/a/6725161
+
+Makefile的相關知識
+參考連結：http://www.cnblogs.com/aoyihuashao/archive/2010/01/18/1650865.html
+
+Makefile檔案的部分
+$@ : 規則的目標所對應的所有文件
+$< : 規則中的第一個依靠文件
+$^ : 規則中整個依靠的列表
+\ : 換行
+
+echo 3 | /proc/sys/vm/drop_caches : 
+這一串是linux kernal上的drop cache方法
+參考連結：http://linux-mm.org/Drop_Caches
+
+tee : 它的作用是將獲取到的數據分為兩個copy，1個copy輸出到標准輸出，另一個copy寫入到指定的文件中。
+參考連結：http://canred.blogspot.tw/2013/03/tee.html
+
+watch : 可以幫你監測一個命令的運行結果
+用-d或--differences選項，watch會高亮顯示變化的區域。
+而-d=cumulative選項會把變動過的地方(不管最近的那次有沒有變動)都高亮顯示出來。
+-t或-no-title會關閉watch命令在頂部的時間間隔、命令，當前時間的輸出。
+OSX系統並沒有原生的watch，但可以簡單實作一個，或是直接brew install watch
+
+OSX上清空cache的替代方案  sync && sudo purge  : 
+sync - force completion of pending disk writes (flush cache)
+purge - force disk cache to be purged (flushed and emptied)
+
