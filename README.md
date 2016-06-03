@@ -1,23 +1,24 @@
-You can use AStyle ([Artistic Style](http://astyle.sourceforge.net/)) source code indenter to
-help you auto format your source code. It will for sure not correct all your coding styles but
-for sure will eliminate most of them. You can download AStyle from [this location](http://astyle.sourceforge.net/)
-or install via `apt-get`:
-```sh
-sudo apt-get install astyle
-```
+# Project Title
 
-To format your file you can execute below command:
-```sh
-astyle --style=kr --indent=spaces=4 --indent-switches --suffix=none *.[ch]
-```
+Sample phonebook program to illustrate the impact of cache miss
 
-Install Git pre-commit hook to check C/C++ source file format
-```sh
-ln -sf ../../scripts/pre-commit.hook .git/hooks/pre-commit
-```
+## Summary
 
-Licensing
----------
+- This project derived from the homework of [NCTU embedded system course](http://wiki.csie.ncku.edu.tw/embedded/2016q1h1).
+- The objects of it are to realize the software optimization, and familiar with the performance analysis tool.
+- Although it used some Linux-only functions and tools, such as perf, I try to do these tasks with alternative tools and ways on OS X enviroment.
+
+### Requirment
+- Reduce the time cost of `findName()`
+- Clear the cache before executing phonebook_orig and phonebook_opt 
+- Use [astyle](http://astyle.sourceforge.net/astyle.html) to format your code
+`astyle --style=kr --indent=spaces=4 --indent-switches`
+
+### Optional
+- Reduce the time cost of `append()` as well
+- Support fuzzy search
+
+## Licensing
 `phonebook` is freely redistributable under the two-clause BSD License.
 Use of this source code is governed by a BSD-style license that can be found
 in the `LICENSE` file.
