@@ -1,6 +1,6 @@
 # Phonebook
 
-Sample phonebook program to illustrate the impact of cache miss
+An phonebook program to illustrate the impact of cache miss
 
 ## Summary
 
