@@ -4,7 +4,7 @@ An phonebook program to illustrate the impact of cache miss
 
 ## Summary
 
-- This project derived from the homework of [NCTU embedded system course](http://wiki.csie.ncku.edu.tw/embedded/2016q1h1).
+- This project derived from the homework of [NCKU embedded system course](http://wiki.csie.ncku.edu.tw/embedded/2016q1h1).
 - The objects of it are to realize the software optimization, and familiar with the performance analysis tool.
 - Although it used some Linux-only functions and tools, such as perf, I try to do these tasks with alternative tools and ways on OS X enviroment.
 
